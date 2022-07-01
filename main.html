@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {% load static %}
-    <title>Consola | EyeOnYou</title>
+    <title>Diogo Beijinha</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="shortcut icon" href="{% static 'images/console.ico' %}">
+    <link rel="shortcut icon" href="">
     <script src="https://unpkg.com/jquery.terminal/js/jquery.terminal.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/jquery.terminal/css/jquery.terminal.min.css"/>
 
@@ -237,66 +236,76 @@ https://blog.carbonfive.com/2015/01/07/vintage-terminal-effect-in-css3/
 </head>
 <body>
 <script>
-    //We use the $() call wrapper to echo text for security reasons
+    var user = "diogo@portfolio";
+    var current_dir = "~";
+    var prompt_var = '[[b;#80ba37;]' + user + ']:'+ '[[b;#638cb0;]' + current_dir + ']$';
         $('body').terminal({
-            comandos: function()
+          help: function()
+          {
+            this.echo("[[;#fff;]ls     - Listar pastas]");
+          },
+          ls: function()
+          {
+            if(current_dir == "~")
             {
-                this.echo('[[b;#fff;]registo] - Começar processo de registo facial.');
-                this.echo('[[b;#fff;]recon] - Começar processo de reconhecimento facial');
-                this.echo('[[b;#fff;]ir <página>] - Ir para página')
-                this.echo('[[b;#fff;]clear] - Limpar a consola.');
-                this.echo('[[b;#fff;]reiniciar] - Reiniciar a consola.');
-                this.echo('[[b;#fff;]sair] - Voltar à página inicial.');
-            },
-            recon: function()
+              this.echo("[[b;#638cb0;]sobre   projetos   cv]");
+            }
+            if(current_dir == "sobre")
             {
-                window.location.replace("../../facial/recon/");
-                this.echo("--- A reconhecer ---");
-                this.echo(" --- Para terminar, pressione Q ---");
-            },
-            registo: function()
+              this.echo("[[b;#fff;]sobre.txt]");
+            }
+          },
+          cd: function(where)
+          {
+            //root
+            if(current_dir == "~")
             {
-                window.location.replace("../../facial/registo/");
-            },
-            sair: function()
-            {
-                window.location.replace("../");
-                this.echo("--- A sair ---");
-            },
-            wix: function()
-            {
-                window.open("https://beafelis2016.wixsite.com/eyeonyou", '_blank');
-            },
-            sobre: function()
-            {
-                this.echo("Prova de Aptidão Profissional apresentada pelo Diogo Beijinha e Beatriz Felismino do 12ºL1 (2021-2022) como requisito para a obtenção do diploma de Programador/a de Informática pela Escola Secundária Madeira Torres.\n");
-            },
-            ir: function(where)
-            {
-                if(where == "alertas" || where == "utilizadores" || where == "logs" || where == "registados")
-                {
-                    pageTo = "../" + where + "/"
-                    window.location.replace(pageTo);
-                }
-                else
-                {
-                    this.echo("[[b;#db0f20;]Página não existe!]");
-                }
+              if(where == "sobre")
+              {
+                current_dir = "sobre";
+                console.log(current_dir);
+              }
+              else if(where == "projetos")
+              {
 
-            },
-            reiniciar: function()
+              }
+              else if(where == "cv")
+              {
+
+              }
+              else
+              {
+                this.echo("[[b;#8b0000;]Directory \"" + where + "\" Not Found!]");
+              }
+            }
+
+            //sobre
+            if(current_dir == "sobre")
             {
-                location.reload();
-                this.echo("--- A recomeçar consola ---");
-            },
+              if(where == "..")
+              {
+                current_dir = "~";
+              }
+            }
+          },
+          cat: function(what)
+          {
+            if(current_dir == "sobre")
+            {
+              if(what == "sobre.txt")
+              {
+                this.echo("[[b;#9400D3;]████████▄]  \n[[b;#9400D3;]███   ▀███ ]\n[[b;#4B0082;]███    ███]  [[b;#8b0000;]Nome:] [[;#fff;]Diogo Filipe Beijinha Ximenes] \n[[b;#0000FF;]███    ███]  [[b;#8b0000;]Linkedin:] [[;#fff;]Diogo-Beijinha]\n[[b;#00FF00;]███    ███]  [[b;#8b0000;]Github:] [[;#fff;]diogo-beijinha] \n[[b;#FFFF00;]███    ███] \n[[b;#FF7F00;]███    ███] \n[[b;#FF0000;]███   ▄███] \n[[b;#FF0000;]████████▀]        \n\n");
+              }
+            }
+          },
         },
         {
-            name: 'EyeOnYou',
+            name: 'diogobeijinha',
             onInit: function() {
-            this.echo('Escreva [[b;#fff;]comandos] para ver os comandos existentes.');
+            this.echo('');
         },
-            greetings: "  ______                   ____           __     __                \n |  ____|                 / __ \\          \\ \\   / /                \n | |__     _   _    ___  | |  | |  _ __    \\ \\_/ /    ___    _   _ \n |  __|   | | | |  / _ \\ | |  | | | '_ \\    \\   /    / _ \\  | | | |\n | |____  | |_| | |  __/ | |__| | | | | |    | |    | (_) | | |_| |\n |______|  \\__, |  \\___|  \\____/  |_| |_|    |_|     \\___/   \\__,_|\n            __/ |                                                  \n           |___/                                                   \n                \De [[b;#16d953;]Diogo Beijinha] e [[b;#5934a8;]Beatriz Felismino]\n\n",
-            prompt: 'EyeOnYou> '
+            greetings: "  _____  _                     ____       _ _ _       _           \n |  __ \\(_)                   |  _ \\     (_|_|_)     | |          \n | |  | |_  ___   __ _  ___   | |_) | ___ _ _ _ _ __ | |__   __ _ \n | |  | | |/ _ \\ / _` |/ _ \\  |  _ < / _ \\ | | | '_ \\| '_ \\ / _` |\n | |__| | | (_) | (_| | (_) | | |_) |  __/ | | | | | | | | | (_| |\n |_____/|_|\\___/ \\__, |\\___/  |____/ \\___|_| |_|_| |_|_| |_|\\__,_|\n                  __/ |                   _/ |                    \n                 |___/                   |__/                     ",
+            prompt: prompt_var + " "
         });
 
 </script>

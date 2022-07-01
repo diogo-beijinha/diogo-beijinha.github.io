@@ -1,0 +1,29 @@
+help: function()
+            {
+                this.echo('[[b;#fff;]cv] - Visualizar Curriculum Vitae.');
+                this.echo('[[b;#fff;]projetos] - Visualizar projetos desenvolvidos por Diogo.');
+            },
+            cv: function()
+            {
+                //Mostrar Modal Box com "Ver em Browser" e "Download"
+                //window.open('cv_pdf.html', '_blank').focus();
+            },
+            projetos: function()
+            {
+
+            },
+            sobre: function()
+            {
+                //Change Prompt
+                current_dir = "~/sobre"
+                console.log(current_dir)
+                this.set_prompt('[[b;#80ba37;]' + user + ']:'+ '[[b;#638cb0;]~/sobre]$ ');
+                this.echo("sobre.txt");
+            },
+            cat: function(file)
+            {
+                if(file == "sobre.txt")
+                {
+
+                }
+            },
